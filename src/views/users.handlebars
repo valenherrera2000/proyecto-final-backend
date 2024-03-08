@@ -1,0 +1,32 @@
+<h1>Users</h1>
+
+<table id="main">
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Birthdate</th>
+        <th>Avatar</th>
+        <th>Document</th>
+        <th>Role</th>
+    </tr>
+    {{#each users}}
+    <tr>
+        <td>{{this.first_name}}</td>
+        <td>{{this.last_name}}</td>
+        <td>{{this.email}}</td>
+        <td>{{formatDate this.birthdate}}</td>
+        <td>
+            {{#if this.avatar}}
+            <img src="{{this.avatar}}" alt="Avatar">
+            {{/if}}
+        </td>
+        <td>
+            {{#if this.document}}
+            <a href="{{this.document}}" target="_blank">View Document</a>
+            {{/if}}
+        </td>
+        <td>{{this.role}}</td>
+    </tr>
+    {{/each}}
+</table>

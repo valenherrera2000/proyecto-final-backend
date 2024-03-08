@@ -1,0 +1,111 @@
+openapi: 3.0.0
+info:
+  title: Products API
+  version: 1.0.0
+paths:
+  /api/products:
+    get:
+      summary: Get all products
+      tags:
+        - Products
+      responses:
+        200:
+          description: Products retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Product'
+        500:
+          description: Internal Server Error
+
+  /api/products/{productId}:
+    get:
+      summary: Get a product by its ID
+      tags:
+        - Products
+      parameters:
+        - in: path
+          name: productId
+          required: true
+          description: ID of the product
+          schema:
+            type: string
+      responses:
+        200:
+          description: Product retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        500:
+          description: Internal Server Error
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: ID of the product
+        title:
+          type: string
+          description: Title of the product
+        description:
+          type: string
+          description: Description of the product
+        price:
+          type: number
+          description: Price of the product
+        thumbnail:
+          type: string
+          description: Thumbnail of the product
+        code:
+          type: string
+          description: Code of the product
+        stock:
+          type: number
+          description: Stock of the product
+        owner:
+          type: string
+          description: Owner of the product
+      example:
+        _id: 5f9d4b7b9c9d6b2b1c7d7b7b
+        title: "Product Title"
+        description: "Product Description"
+        price: 19.99
+        thumbnail: "thumbnail.jpg"
+        code: "P12345"
+        stock: 100
+        owner: "admin"
+
+    ProductInput:
+      type: object
+      properties:
+        title:
+          type: string
+          description: Title of the product
+        description:
+          type: string
+          description: Description of the product
+        price:
+          type: number
+          description: Price of the product
+        thumbnail:
+          type: string
+          description: Thumbnail of the product
+        code:
+          type: string
+          description: Code of the product
+        stock:
+          type: number
+          description: Stock of the product
+      example:
+        title: "Product Title"
+        description: "Product Description"
+        price: 19.99
+        thumbnail: "thumbnail.jpg"
+        code: "P12345"
+        stock: 100
