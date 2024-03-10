@@ -1,23 +1,23 @@
 import { expect } from 'chai';
 import mongoose from 'mongoose';
-import MessageMongoDbDao from '../../src/dao/dao.mongodb/message.mongodb.dao'; // Import MessageMongoDbDao
+import MessageMongoDbDao from '../../src/dao/dao.mongodb/message.mongodb.dao';
 
 describe('[Unit] Message DAO', function () {
     before(async function () {
-        // Connect to the test database
+
         await mongoose.connect(process.env.MONGODB_URI_TEST);
-        // Clear the messages collection
+
         await mongoose.connection.collections.messages.drop();
     });
 
     after(async function () {
-        // Drop the messages collection and close the connection
+
         await mongoose.connection.collections.messages.drop();
         await mongoose.connection.close();
     });
 
     it('should create a message correctly', async function () {
-        const messageDAO = new MessageMongoDbDao(); // Use MessageMongoDbDao
+        const messageDAO = new MessageMongoDbDao(); 
         const createdMessage = await messageDAO.create({
             user: 'user123',
             message: 'Hello, how are you?',
@@ -29,7 +29,7 @@ describe('[Unit] Message DAO', function () {
     });
 
     it('should get a message by its ID correctly', async function () {
-        const messageDAO = new MessageMongoDbDao(); // Use MessageMongoDbDao
+        const messageDAO = new MessageMongoDbDao(); 
         const createdMessage = await messageDAO.create({
             user: 'user123',
             message: 'Hello, how are you?',
@@ -42,7 +42,7 @@ describe('[Unit] Message DAO', function () {
     });
 
     it('should update a message by its ID correctly', async function () {
-        const messageDAO = new MessageMongoDbDao(); // Use MessageMongoDbDao
+        const messageDAO = new MessageMongoDbDao(); 
         const createdMessage = await messageDAO.create({
             user: 'user123',
             message: 'Hello, how are you?',
@@ -57,7 +57,7 @@ describe('[Unit] Message DAO', function () {
     });
 
     it('should delete a message by its ID correctly', async function () {
-        const messageDAO = new MessageMongoDbDao(); // Use MessageMongoDbDao
+        const messageDAO = new MessageMongoDbDao();
         const createdMessage = await messageDAO.create({
             user: 'user123',
             message: 'Hello, how are you?',

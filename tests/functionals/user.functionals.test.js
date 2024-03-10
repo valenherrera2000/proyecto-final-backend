@@ -4,28 +4,28 @@ import supertest from 'supertest';
 
 const requester = supertest(process.env.BASE_URL);
 
-describe('Authentication testing', function() {
-  it('debe registrar un usuario correctamente', async function() {
+describe('Authentication testing', function () {
+  it('should register a user successfully', async function () {
     this.email = `rdannohl${Date.now()}@myspace.com`;
     this.password = Date.now().toString();
-      const userMock = {
-        first_name: 'Richmound',
-        last_name: 'Dannohl',
-        email: this.email,
-        password: this.password,
-        birthdate: '2023-03-12',
-      };
-      const {
-        statusCode,
-        ok,
-        _body,
-      } = await requester.post('/api/auth/register').send(userMock);
-      expect(statusCode).to.be.equals(201);
-      expect(ok).to.be.ok;
-      expect(_body).to.be.has.property('id');
-      expect(_body).to.be.has.property('role', 'user');
+    const userMock = {
+      first_name: 'Richmound',
+      last_name: 'Dannohl',
+      email: this.email,
+      password: this.password,
+      birthdate: '2023-03-12',
+    };
+    const {
+      statusCode,
+      ok,
+      _body,
+    } = await requester.post('/api/auth/register').send(userMock);
+    expect(statusCode).to.be.equals(201);
+    expect(ok).to.be.ok;
+    expect(_body).to.be.has.property('id');
+    expect(_body).to.be.has.property('role', 'user');
   });
-  it('debe loguear un usuario correctamente', async function() {
+  it('should login a user successfully', async function () {
     const credentialsMock = {
       email: this.email,
       password: this.password,
@@ -42,7 +42,7 @@ describe('Authentication testing', function() {
     const [key, value] = headers['set-cookie'][0].split('=');
     this.cookie = { key, value };
   });
-  it('debe obteneter el usuario actual correctamente', async function() {
+  it('should get the current user successfully', async function () {
     const {
       statusCode,
       ok,
@@ -53,7 +53,7 @@ describe('Authentication testing', function() {
     expect(ok).to.be.ok;
     expect(_body).to.be.has.property('email', this.email);
   });
-  it('debe subir un archivo al usuario actual correctamente', async function() {
+  it('should upload a file to the current user successfully', async function () {
     const {
       statusCode,
       ok,
@@ -65,5 +65,3 @@ describe('Authentication testing', function() {
     expect(ok).to.be.ok;
   });
 });
-
-

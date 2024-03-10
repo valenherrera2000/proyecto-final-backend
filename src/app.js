@@ -31,7 +31,7 @@ const specs = swaggerJsDoc({
     openapi: '3.0.1',
     info: {
       title: 'Ecommerce API',
-      description: 'Esta es la documentación de la API de nuestro Ecommerce.',
+      description: 'This is the documentation for our Ecommerce API.',
     },
   },
   apis: [path.join(__dirname, '..', 'docs', '**', '*.yaml')],
@@ -44,7 +44,7 @@ app.use('/api', authRouter, usersRouter, cartRouter, productRouter, messageRoute
 app.use((error, req, res, next) => {
   const message = error instanceof Exception ?
     error.message :
-    `Ah ocurrido un error desconocido 😨: ${error.message}`;
+    `An unknown error occurred 😨: ${error.message}`;
   logger.error(message);
   res.status(error.statusCode || 500).json({ status: 'error', message });
 });

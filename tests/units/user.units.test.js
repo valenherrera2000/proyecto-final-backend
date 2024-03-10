@@ -1,21 +1,21 @@
 import { expect } from 'chai';
 import mongoose from 'mongoose';
-import UserDao from '../../src/dao/user.mongodb.dao.js';
+import UserDao from '../../src/dao/dao.mongodb/user.mongodb.dao';
 
-describe('[Unit] User Dao', function() {
-  before(async function() {
+describe('[Unit] User Dao', function () {
+  before(async function () {
     this.currentUser = null;
     this.userDao = new UserDao();
     await mongoose.connect(process.env.MONGODB_URI_TEST);
     await mongoose.connection.collections.users.drop();
   });
 
-  after(async function() {
+  after(async function () {
     await mongoose.connection.collections.users.drop();
     await mongoose.connection.close();
   });
 
-  it('Debe crear un usuario correctamente', async function() {
+  it('should create a user correctly', async function () {
     this.currentUser = await this.userDao.create({
       first_name: 'Pedro',
       last_name: 'Pascal',
@@ -27,20 +27,20 @@ describe('[Unit] User Dao', function() {
     expect(this.currentUser).to.be.has.property('role', 'user');
   });
 
-  it('Debe obtener un usuario por su id correctamente', async function() {
+  it('should get a user by its id correctly', async function () {
     const user = await this.userDao.getById(this.currentUser._id);
     expect(user).to.be.ok;
     expect(String(user._id)).to.be.equals(String(this.currentUser._id));
   });
 
-  it('Debe actualizar un usuario por su id correctamente', async function() {
-    await this.userDao.updateById(this.currentUser._id, { first_name: 'Pedro Fatastic' });
+  it('should update a user by its id correctly', async function () {
+    await this.userDao.updateById(this.currentUser._id, { first_name: 'Pedro Fantastic' });
     const user = await this.userDao.getById(this.currentUser._id);
     expect(user).to.be.ok;
-    expect(user.first_name).to.be.equals('Pedro Fatastic');
+    expect(user.first_name).to.be.equals('Pedro Fantastic');
   });
 
-  it('Debe eliminar un usuario por su id correctamente', async function() {
+  it('should delete a user by its id correctly', async function () {
     await this.userDao.deleteById(this.currentUser._id);
     const user = await this.userDao.getById(this.currentUser._id);
     expect(user).to.be.not.ok;
