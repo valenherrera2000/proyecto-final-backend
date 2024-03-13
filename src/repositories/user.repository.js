@@ -24,9 +24,16 @@ export default class UserRepository {
     return new UserDto(user);
   }
 
-  updateById(uid, data) {
+  async updateById(uid, data) {
+    if (data.documents) {
+      const existingUser = await this.dao.getById(uid);
+      if (existingUser) {
+        data.documents = [...existingUser.documents, ...data.documents];
+      }
+    }
     return this.dao.updateById(uid, data);
   }
+
 
   deleteById(uid) {
     return this.dao.deleteById(uid);

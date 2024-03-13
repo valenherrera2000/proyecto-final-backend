@@ -41,4 +41,9 @@ export default class UsersController {
     }
     return UsersService.updateById(uid, data);
   }
+
+  static async updateDocuments(uid, files) {
+    const updatedUser = await UsersService.updateDocuments(uid, files);
+    return updatedUser;
+  }
 }

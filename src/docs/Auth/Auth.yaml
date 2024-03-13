@@ -1,7 +1,7 @@
 paths:
   /api/auth/register:
     post:
-      summary: Registro de usuario
+      summary: User Registration
       tags:
         - Auth
       requestBody:
@@ -12,12 +12,13 @@ paths:
               $ref: '#/components/requestBodies/register'
       responses:
         201:
-          description: Usuario registrado con éxito
+          description: User registered successfully
         400:
           description: Invalid data.
+
   /api/auth/login:
     post:
-      summary: Login de usuario
+      summary: User Login
       tags:
         - Auth
       requestBody:
@@ -28,19 +29,20 @@ paths:
               $ref: '#/components/requestBodies/login'
       responses:
         200:
-          description: Usuario logeado con éxito
+          description: User logged in successfully
         401:
-          description: Credenciales invalidas.
+          description: Invalid credentials.
+
   /api/auth/current:
     get:
-      summary: Obtener usuario actualmetne logueado
+      summary: Get currently logged-in user
       tags:
         - Auth
       responses:
         200:
-          description: Usuario obtenido con éxito
+          description: User retrieved successfully
         401:
-          description: No autorizado.
+          description: Unauthorized.
 
 components:
   requestBodies:
@@ -49,34 +51,35 @@ components:
       properties:
         first_name:
           type: string
-          description: Nombre del usuario
+          description: User's first name
         last_name:
           type: string
-          description: Apellido del usuario
+          description: User's last name
         email:
           type: string
-          description: Correo electónico del usuario
+          description: User's email address
         password:
           type: string
-          description: Contraseña del usuario
+          description: User's password
         birthdate:
           type: string
-          description: Fecha de nacieminto del usuario (YYYY-MM-DD)
+          description: User's birthdate (YYYY-MM-DD)
       example:
         first_name: Pedro
         last_name: Pascal
-        email: pedropacal@4fantasticos.com
+        email: pedropascal@4fantasticos.com
         password: qwerty
         birthdate: 2024-02-15
+
     login:
       type: object
       properties:
         email:
           type: string
-          description: Correo electónico del usuario
+          description: User's email address
         password:
           type: string
-          description: Contraseña del usuario
+          description: User's password
       example:
-        email: pedropacal@4fantasticos.com
+        email: pedropascal@4fantasticos.com
         password: qwerty

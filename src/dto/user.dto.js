@@ -7,8 +7,9 @@ export default class UserDto {
     this.last_name = data.last_name;
     this.email = data.email;
     this.birthdate = data.birthdate;
-    this.avatar = data.avatar ? `${config.baseUrl}/images/avatares/${data.avatar}` : null;
+    this.avatar = data.avatar ? `${config.baseUrl}/images/avatars/${data.avatar}` : null;
     this.document = data.document ? `${config.baseUrl}/documents/${data.document}` : null;
+    this.last_connection = data.last_connection;
     this.role = data.role;
   }
 }

@@ -1,10 +1,23 @@
 import { Router } from 'express';
-import { authToken, authRole } from '../../middlewares/authentication.middleware.js';
-import { bodyUsersValidator}  from '../../middlewares/body-users-validator.middleware.js';
-import { emailUserValidator } from '../../middlewares/email-user-validator.middleware.js';
+import multer from 'multer';
+import { authToken, authRole } from '../../middlewares/auth.middleware.js';
+import { bodyUsersValidator}  from '../../middlewares/user.middleware.js';
+import { emailUserValidator } from '../../middlewares/user.email.middleware.js';
 import UserController from '../../controllers/users.controller.js';
 
+
 const router = Router();
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, '../../../public/documents');
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
+
+const upload = multer({ storage });
 
 router.get('/users',
   authToken,
@@ -71,5 +84,18 @@ router.delete('/users/:uid',
     next(error);
   }
 });
+
+router.post('/users/:uid/documents',
+  upload.array('documents'),
+  async (req, res, next) => {
+    try {
+      const { params: { uid }, files } = req;
+      const updatedUser = await UserController.updateDocuments(uid, files);
+      res.status(200).json(updatedUser);
+    } catch (error) {
+      next(error);
+    }
+  });
+
 
 export default router;

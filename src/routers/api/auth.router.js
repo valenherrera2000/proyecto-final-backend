@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import { bodyUsersValidator } from '../../middlewares/body-users-validator.middleware.js';
-import { emailUserValidator } from '../../middlewares/email-user-validator.middleware.js';
+import { bodyUsersValidator } from '../../middlewares/user.middleware.js';
+import { emailUserValidator } from '../../middlewares/user.email.middleware.js';
 import AuthController from '../../controllers/auth.controller.js';
 import UsersController from '../../controllers/users.controller.js';
-import { authToken } from '../../middlewares/authentication.middleware.js';
+import { authToken } from '../../middlewares/auth.middleware.js';
 import { uploader } from '../../utils/utils.js';
 
 const router = Router();

@@ -8,9 +8,10 @@
     "test": "tests"
   },
   "scripts": {
-    "start": "node .",
-    "dev": "nodemon --exec node -r dotenv/config .",
-    "test": "mocha -r dotenv/config --timeout 10000 --exit ./tests/**/*.test.js",
+    "start": "node src/server.js",
+    "dev": "nodemon --exec node -r dotenv/config src/server.js",
+    "test": "mocha test/supertest.test.js",
+    "test mocha": "mocha test/supertest.test/js-r dotenv/config --timeout 10000 --exit ./tests/**/*.test.js",
     "test:units": "mocha -r dotenv/config --timeout 10000 --exit ./tests/units/*.test.js",
     "test:functionals": "mocha -r dotenv/config --timeout 10000 --exit ./tests/functionals/*.test.js"
   },

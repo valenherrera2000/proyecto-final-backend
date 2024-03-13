@@ -21,7 +21,12 @@ export default class UsersService {
     return userRepository.updateById(uid, data);
   }
 
-  static deleteById(uid) {
-    return userRepository.deleteById(uid);
+  static async updateDocuments(uid, files) {
+    const documents = files.map(file => ({
+      name: file.originalname,
+      reference: file.filename,
+    }));
+
+    return userRepository.updateById(uid, { documents });
   }
 }

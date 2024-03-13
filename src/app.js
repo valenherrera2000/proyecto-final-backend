@@ -13,7 +13,7 @@ import productRouter from './routers/api/product.router.js';
 import messageRouter from './routers/api/message.router.js';
 import { __dirname } from './utils/utils.js';
 import Exception from './utils/exception.js';
-import { addLogger, logger } from './config/logger.config.js';
+import { addLogger, logger } from './config/logger.js';
 
 const app = express();
 
@@ -22,10 +22,14 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, '..', '../public')));
-app.engine('handlebars', handlebars.engine());
+
+
+// Set view engine and views directory
 app.set('views', path.join(__dirname, '..', 'views'));
 app.set('view engine', 'handlebars');
 
+
+// Swagger setup
 const specs = swaggerJsDoc({
   definition: {
     openapi: '3.0.1',
@@ -36,11 +40,13 @@ const specs = swaggerJsDoc({
   },
   apis: [path.join(__dirname, '..', 'docs', '**', '*.yaml')],
 });
-
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+
+// Routes
 app.use('/', indexRouter);
 app.use('/api', authRouter, usersRouter, cartRouter, productRouter, messageRouter);
 
+// Error handler middleware
 app.use((error, req, res, next) => {
   const message = error instanceof Exception ?
     error.message :

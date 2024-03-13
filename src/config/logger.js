@@ -11,8 +11,8 @@ const levels = {
 };
 
 const colors = {
-  panic: 'magenta',
-  error: 'red',
+  panic: 'red',
+  error: 'magenta',
   warn: 'yellow',
   info: 'blue',
   debug: 'cyan',
