@@ -25,6 +25,7 @@ app.use(express.static(path.join(__dirname, '..', '../public')));
 
 
 // Set view engine and views directory
+app.engine('handlebars', handlebars.engine());
 app.set('views', path.join(__dirname, '..', 'views'));
 app.set('view engine', 'handlebars');
 
@@ -44,7 +45,11 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 // Routes
 app.use('/', indexRouter);
-app.use('/api', authRouter, usersRouter, cartRouter, productRouter, messageRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/cart', cartRouter);
+app.use('/api/products', productRouter)
+app.use('/api/message', messageRouter);
 
 // Error handler middleware
 app.use((error, req, res, next) => {
